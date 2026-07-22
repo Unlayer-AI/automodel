@@ -1,3 +1,6 @@
 .DS_Store
 examples/
 assets/*.xcf
+
+# Domain-specific references dropped in during a run (user-provided, not shipped)
+automodel/references/

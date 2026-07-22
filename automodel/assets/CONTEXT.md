@@ -20,6 +20,7 @@ constraints on form (interpretable, closed-form, mechanistic, etc.).>
 - **Key variables:** <which columns / fields map to inputs and outputs>
 - **Cleaning:** <outlier handling, filtering, interpolation — reference the function name if in code>
 - **Splits:** <description of how the data is split into training, validation, and test (holdout) sets, e.g. "random 70/15/15 split with seed=42", or "train on years 2010–2018, validate on 2019, test on 2020">
+- **Selection principle:** <what candidates are scored against — held-out validation set, k-fold CV, or a penalised in-sample score (AIC/BIC/MDL) — and why; Phase 3 compares every candidate on this>
 
 ## <Loss/Cost/Objective> / metrics
 <rename these items appropriately based on domain terminology (e.g. pharmacology, aerospace, ...) e.g. "cost function" instead of "loss">

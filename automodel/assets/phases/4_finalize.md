@@ -18,7 +18,7 @@ Read `CONTEXT.md` to identify the best model path and its validation performance
 Evaluate the best model on `test.X`. Report all metrics defined in Phase 1 (including run-time and memory).
 
 ### 3. Decide
-- If test performance is significantly worse than validation: discuss with the user whether to return to Phase 3 — Iterate (suggest to the user to gather new data to use as a fresh test set to prevent overfitting via repeated evaluation!).
+- If test performance is significantly worse than validation: discuss with the user whether to return to Phase 3 — Iterate. **If you do, do not keep re-evaluating on the same test set** — each repeated peek erodes its independence and reintroduces the overfitting the holdout was meant to catch. Advise the user to gather fresh data for a new test set before iterating further.
 - If test performance is acceptable: finalize.
 
 ## Context dump (end of phase)
