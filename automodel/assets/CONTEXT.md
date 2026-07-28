@@ -19,8 +19,9 @@ constraints on form (interpretable, closed-form, mechanistic, etc.).>
 - **File(s):** `<path/to/data>` — <brief description>
 - **Key variables:** <which columns / fields map to inputs and outputs>
 - **Cleaning:** <outlier handling, filtering, interpolation — reference the function name if in code>
-- **Splits:** <description of how the data is split into training, validation, and test (holdout) sets, e.g. "random 70/15/15 split with seed=42", or "train on years 2010–2018, validate on 2019, test on 2020">
-- **Selection principle:** <what candidates are scored against — held-out validation set, k-fold CV, or a penalised in-sample score (AIC/BIC/MDL) — and why; Phase 3 compares every candidate on this>
+- **Selection score:** <the score that ranks candidates in Phase 3, and what the user agreed it implies for validation — held-out set, (stratified) k-fold CV, or an in-sample information criterion (AIC/BIC/MDL) needing no validation split>
+- **Splits:** <description of how the data is split, following from the selection score, e.g. "random 70/15/15 train/validation/test with seed=42", "5-fold CV on 85%, 15% test", "train on years 2010–2018, validate on 2019, test on 2020", or "none — full-dataset fit">
+- **External check (Phase 4):** <what the search never touches — a held-out test set, replication on an independent dataset, or constraints the form must satisfy outside the fitted range>
 
 ## <Loss/Cost/Objective> / metrics
 <rename these items appropriately based on domain terminology (e.g. pharmacology, aerospace, ...) e.g. "cost function" instead of "loss">

@@ -30,7 +30,7 @@ Provide each sub-agent with:
 
 - If `m = 1`, the baseline model file; if `m > 1`, the best model from `meta_(m-1)/agent_s` + respective evaluation results;
 - A distinct hypothesis or search direction (ensure agents don't duplicate effort);
-- Any relevant material from the skill's `references/` folder, and the **same** evaluation protocol/script — train on `train.X`, evaluate on both `train.X` and `validation.X`, log all metrics — so results are comparable across agents. If Phase 1 chose to select on a penalised in-sample score (AIC/BIC/MDL) instead of a held-out split, substitute that here; either way, "validation metric" below means whichever the Phase 1 selection principle chose;
+- Any relevant material from the skill's `references/` folder, and the **same** evaluation protocol/script — train on `train.X`, evaluate on both `train.X` and `validation.X` (or what applies, e.g. cross-validation), log all metrics — so results are comparable across agents;
 - The instruction to **run each fit and evaluation to completion and write its results before returning** — do not background a long job and end the turn, which leaves work unharvested and processes orphaned.
 
 ### 2. Sub-agent inner loop (I iterations each)
@@ -68,7 +68,7 @@ Present:
 
 Ask the user:
 
-- **Continue iterating?** → return to Setup above, choosing new M/S/I; increment meta-iteration index to `M+1` to avoid overwriting previous logs. Ensure `CONTEXT.md` captures the state needed to plan the next batch; compact history before starting **if the window is under context pressure**;
+- **Continue iterating?** → return to Setup above, choosing new M/S/I; increment meta-iteration index to `M+1` to avoid overwriting previous logs. Ensure `CONTEXT.md` captures the state needed to plan the next batch; if the last batch returned bulky output into the conversation, **suggest compacting** before starting;
 - **Satisfied with validation performance?** → proceed to Phase 4 — Finalize.
 
 ---
@@ -79,4 +79,4 @@ Update `CONTEXT.md` with:
 - Path to the best model file and its validation metrics;
 - Final search summary: what was tried, what worked, rationale for stopping.
 
-Finally, **verify `CONTEXT.md` is self-sufficient** — it must point to the best model file and carry the full search summary, so Phase 4 can run from it alone. **Compact the conversation history under context pressure**; otherwise proceed directly to Phase 4 — Finalize.
+Finally, **verify `CONTEXT.md` is self-sufficient** — it must point to the best model file and carry the full search summary, so Phase 4 can run from it alone. If the search left bulky output in the conversation, **suggest the user compact it** before proceeding to Phase 4 — Finalize.
