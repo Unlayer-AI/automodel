@@ -39,8 +39,10 @@ If the model fails to converge, diagnose and fix before proceeding.
 
 Update `CONTEXT.md` with:
 - Mock model description (structure, key equations or code functions)
-- Baseline metrics on train and validation sets
+- Baseline metrics on train and validation sets (or in line with previous choices e.g. cross-val)
 - Confirmed run-time and memory per optimization run
 - Any environment or permission findings from the sub-agent test
 
-Then **compact your conversation history** before proceeding to Phase 3 — Iterate.
+Then **verify `CONTEXT.md` is self-sufficient**: a fresh agent with no conversation history should be able to resume from it alone.
+
+If the sub-agent test left large logs in the conversation, **suggest the user compact it** before proceeding to Phase 3 — Iterate.

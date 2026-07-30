@@ -16,7 +16,7 @@ This skill is organized into four sequential phases, each with a detailed recipe
 |---|---|---|
 | **1 — Setup** | `assets/phases/1_setup.md` | No `CONTEXT.md` artifact in project root |
 | **2 — Baseline Model** | `assets/phases/2_baseline_model.md` | `CONTEXT.md` exists; Some prep work done; |
-| **3 — Iterate** | `assets/phases/3_iterate.md` | End-to-end pipeline verified for baseline model |
+| **3 — Iterate** | `assets/phases/3_iterate.md` | End-to-end pipeline verified for baseline model (resume from the highest existing `meta_*/` directory) |
 | **4 — Finalize** | `assets/phases/4_finalize.md` | User satisfied with validation performance; `CONTEXT.md` points to best model |
 
 Each phase updates `CONTEXT.md`. Use the resulting artifacts as re-entry signals when resuming.
@@ -40,3 +40,7 @@ Each phase updates `CONTEXT.md`. Use the resulting artifacts as re-entry signals
 ## References
 
 The user may place relevant papers, code snippets, or other resources in the `references` folder — check them only when prompted to do so within a particular phase, and refer back / review with the user as needed.
+
+## Optional tips
+
+`TIPS.md` collects optional, use-case-dependent practices (metric uncertainty, optimizer-noise controls, structured result logging, trivial baselines) kept out of the core recipes because their relevance varies by domain. Consult it — or fold relevant items into your fork — as needed.

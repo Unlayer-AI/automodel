@@ -1,8 +1,8 @@
 ---
 name: iterate
 description: Third and main phase. Orchestrate meta/inner agent loop. Guide user in choosing iteration parameters, spawn S parallel sub-agents per meta-iteration each running I sequential structural modifications, review results across agents, and repeat for M meta-iterations until user is satisfied with validation performance.
-entry: CONTEXT.md exists; end-to-end pipeline verified for baseline model.
-exit: User satisfied with validation performance; CONTEXT.md updated with final summary; history compacted
+entry: CONTEXT.md exists; end-to-end pipeline verified for baseline model. If `meta_*/` directories already exist, resume from the highest completed meta-iteration rather than restarting.
+exit: User satisfied with validation performance; CONTEXT.md updated with final summary and self-sufficient for Phase 4
 ---
 
 # Phase 3 — Iterate
@@ -30,22 +30,24 @@ Provide each sub-agent with:
 
 - If `m = 1`, the baseline model file; if `m > 1`, the best model from `meta_(m-1)/agent_s` + respective evaluation results;
 - A distinct hypothesis or search direction (ensure agents don't duplicate effort);
-- The evaluation protocol: train on `train.X`, evaluate on both `train.X` and `validation.X`, log all metrics.
+- Any relevant material from the skill's `references/` folder, and the **same** evaluation protocol/script — train on `train.X`, evaluate on both `train.X` and `validation.X` (or what applies, e.g. cross-validation), log all metrics — so results are comparable across agents;
+- The instruction to **run each fit and evaluation to completion and write its results before returning** — do not background a long job and end the turn, which leaves work unharvested and processes orphaned.
 
 ### 2. Sub-agent inner loop (I iterations each)
 Each sub-agent, for `i = 1 … I`:
 
-1. Check if the `references/` folder of the skill contains any relevant info to consider;
-2. Plan a *structural* modification to the model — at the level of equations or code functions (e.g. new terms, different functional form, changed layers), based on the previous attempt's evaluation results;
-3. Implement the modified model in `meta_m/agent_s/attempt_i/model.X`, making sure that it is commented in a clear and complete way, to document your planned choices;
-4. Train/calibrate on `train.X` using the optimization routine;
-5. Evaluate on `train.X` and `validation.X`; store results in `meta_m/agent_s/attempt_i/evaluation.md`;
-6. Proceed to next iteration.
+1. Plan a *structural* modification to the model — at the level of equations or code functions (e.g. new terms, different functional form, changed layers), based on the previous attempt's evaluation results, in particular where it fits worst (residual structure, worst region/subgroup);
+2. Implement the modified model in `meta_m/agent_s/attempt_i/model.X`, making sure that it is commented in a clear and complete way, to document your planned choices;
+3. Train/calibrate on `train.X` using the optimization routine;
+4. Evaluate with the shared protocol; store results in `meta_m/agent_s/attempt_i/evaluation.md`;
+5. Proceed to next iteration.
 
 ### 3. Meta-iteration review (no user involvement)
 Once all S agents complete their I iterations:
 
-- Review each agent's `evaluation.md` results to identify the best-peforming model across all attempts and agents;
+- Discard any agent that returned without complete written results (crashed, wrote NaNs, or left a job unfinished) as a dead lineage — do not compare it — and clean up any orphaned processes it left behind;
+- Review each surviving agent's `evaluation.md` to shortlist the best-performing models across all attempts and agents;
+- Re-evaluate the shortlist yourself through the common evaluation protocol before declaring a winner: sub-agent point estimates from differing fit settings are not directly comparable, and small metric gaps may be within run-to-run noise (see `TIPS.md` for making this quantitative);
 - Identify which structural changes improved performance and which didn't;
 - Formulate hypotheses for the next meta-iteration; ensure next-iteration agent prompts cover non-overlapping search directions.
 
@@ -66,7 +68,7 @@ Present:
 
 Ask the user:
 
-- **Continue iterating?** → return to Setup above, choosing new M/S/I; increment meta-iteration index to `M+1` to avoid overwriting previous logs; compact history before starting;
+- **Continue iterating?** → return to Setup above, choosing new M/S/I; increment meta-iteration index to `M+1` to avoid overwriting previous logs. Ensure `CONTEXT.md` captures the state needed to plan the next batch; if the last batch returned bulky output into the conversation, **suggest compacting** before starting;
 - **Satisfied with validation performance?** → proceed to Phase 4 — Finalize.
 
 ---
@@ -77,4 +79,4 @@ Update `CONTEXT.md` with:
 - Path to the best model file and its validation metrics;
 - Final search summary: what was tried, what worked, rationale for stopping.
 
-Finally, ask the user to **compact the conversation history** before proceeding to Phase 4 — Finalize.
+Finally, **verify `CONTEXT.md` is self-sufficient** — it must point to the best model file and carry the full search summary, so Phase 4 can run from it alone. If the search left bulky output in the conversation, **suggest the user compact it** before proceeding to Phase 4 — Finalize.

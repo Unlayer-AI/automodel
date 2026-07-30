@@ -84,7 +84,7 @@ The skill is organized into four sequential phases. The agent uses each recipe's
 |---|---|---|
 | **1 - [Setup](automodel/assets/phases/1_setup.md)** | Confirm the goal and terminology, prepare data splits, define metrics, and set up parameter optimization. | No `CONTEXT.md` exists in the project root |
 | **2 - [Baseline Model](automodel/assets/phases/2_baseline_model.md)** | Implement a simple parameterized baseline, test the full pipeline with a sub-agent, and verify that its outputs are plausible. | Set up work done and recorded in `CONTEXT.md` |
-| **3 - [Iterate](automodel/assets/phases/3_iterate.md)** | Choose the loop parameters, explore structural modifications with parallel inner agents, review the results, and repeat as needed. | `CONTEXT.md` exists and the end-to-end pipeline is verified for the baseline model |
+| **3 - [Iterate](automodel/assets/phases/3_iterate.md)** | Choose the loop parameters, explore structural modifications with parallel inner agents, review the results, and repeat as needed. | `CONTEXT.md` exists and the end-to-end pipeline is verified for the baseline model (resume from the highest existing `meta_*/` directory) |
 | **4 - [Finalize](automodel/assets/phases/4_finalize.md)** | Evaluate the best model on the held-out test set, decide whether to return to iteration or accept it, and record the outcome. | User is satisfied with validation performance and `CONTEXT.md` points to the best model |
 
 The agent is asked to read only the YAML frontmatter of a phase file to confirm the right phase before loading the full recipe.
@@ -107,6 +107,7 @@ The repository does not yet publish benchmark results. Reproducible examples and
 ```
 automodel/
   SKILL.md                    # Skill entry point and phase routing
+  TIPS.md                     # Optional, use-case-dependent practices
   assets/
     CHECKLIST.md              # Progress-tracking template
     CONTEXT.md                # Living experiment record template

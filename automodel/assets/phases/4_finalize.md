@@ -1,6 +1,6 @@
 ---
 name: finalize
-description: Fourth and final phase. Evaluate the best model on the held-out test set, decide whether to return to Iterate or accept results, and record the final outcome in CONTEXT.md.
+description: Fourth and final phase. Evaluate the best model against the external check agreed in Phase 1, decide whether to return to Iterate or accept results, and record the final outcome in CONTEXT.md.
 entry: User satisfied with validation performance; CONTEXT.md has pointer to best model
 exit: CONTEXT.md updated with final decision, test metrics, and key handoff details.
 ---
@@ -14,12 +14,12 @@ exit: CONTEXT.md updated with final decision, test metrics, and key handoff deta
 ### 1. Restore context
 Read `CONTEXT.md` to identify the best model path and its validation performance.
 
-### 2. Final test-set evaluation
-Evaluate the best model on `test.X`. Report all metrics defined in Phase 1 (including run-time and memory).
+### 2. Final evaluation
+Apply the external check agreed in Phase 1: evaluate the best model on `test.X`, or run the agreed alternative (replication on an independent dataset, or the constraints the form must satisfy outside the fitted range). Report all metrics defined in Phase 1 (including run-time and memory).
 
 ### 3. Decide
-- If test performance is significantly worse than validation: discuss with the user whether to return to Phase 3 — Iterate (suggest to the user to gather new data to use as a fresh test set to prevent overfitting via repeated evaluation!).
-- If test performance is acceptable: finalize.
+- If the check comes out significantly worse than the search suggested: discuss with the user whether to return to Phase 3 — Iterate. **If you do, do not keep re-using the same check** — each repeated peek erodes its independence and reintroduces the overfitting it was meant to catch. Advise the user to obtain fresh data, or a fresh check, before iterating further.
+- If the check is acceptable: finalize.
 
 ## Context dump (end of phase)
 
