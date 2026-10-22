@@ -102,6 +102,21 @@ A completed run produces a traceable progression from baseline to final model:
 
 The repository does not yet publish benchmark results. Reproducible examples and measured case studies are planned as the skill matures.
 
+## 💬 What people are saying
+
+> It's like a physics prior on steroids\
+> Good stuff\
+> Overnight optimised the cosmological rescaling of halo properties\
+> Much better than before and from 5 to 2 parameters
+>
+> — Richard Stiskalek, Research Fellow, University of Oxford
+
+> Really incredible\
+> …\
+> This is terrifying. And it saves so much time.
+>
+> — Pedro Ferreira, Professor of Astrophysics, University of Oxford
+
 ## 🗂️ Skill structure
 
 ```
