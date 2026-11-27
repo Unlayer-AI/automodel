@@ -9,7 +9,7 @@
 ![Type: Agent Skill](https://img.shields.io/badge/Type-Agent%20Skill-1f6feb.svg)
 ![Workflow: Meta/Inner Loop](https://img.shields.io/badge/Workflow-Meta%2FInner%20Loop-8a2be2.svg)
 
-`automodel` is an agent **skill** for building or improving models from data. It searches for better model **structures** by transforming input features, introducing equation terms, or modifying neural network layers.
+`automodel` is an agent **skill** for building or improving models from data. It searches for better model **structures** by transforming input features, introducing equation terms, or modifying neural network layers. Researchers have successfully applied automodel to astrophysics, cardiovascular dynamics, precision agriculture, tire dynamics, and traffic flow: [📄 read the paper](https://arxiv.org/abs/2611.24347).
 
 This skill takes inspiration from [Karpathy's autoresearch](https://github.com/karpathy/autoresearch), but generalizes the approach to guide users through domain-agnostic searches for model structures, potentially starting from data alone. It is intentionally *minimal and flexible*.
 For more robust and scalable model and program discovery approaches, consider [OpenEvolve](https://github.com/algorithmicsuperintelligence/openevolve), [ShinkaEvolve](https://github.com/SakanaAI/ShinkaEvolve), [SkyDiscover](https://github.com/skydiscover-ai/skydiscover), etc.
@@ -154,10 +154,10 @@ The use of "*discovered with automodel*" in any derivative works is kindly encou
 If you use `automodel` in your work, please consider citing:
 
 ```
-@software{automodel,
-  author = {Unlayer AI},
-  title = {automodel: An Agent Skill for Discovering Models from Data},
-  year = {2026},
-  url = {https://github.com/unlayer-ai/automodel}
+@article{virgolin2026automodel,
+  title={automodel: A Skill for Agentic Model Discovery},
+  author={Virgolin, Marco and Desmond, Harry and Bergantin, Ester and Morales, Giorgio and Sheppard, John W and Romano, Luigi and Lucantonio, Alessandro},
+  journal={arXiv preprint arXiv:2611.24347},
+  year={2026}
 }
 ```
